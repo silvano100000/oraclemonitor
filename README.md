@@ -1,4 +1,4 @@
-Estrutura:
+## Estrutura:
 - app.py
 - config.ini
 - history.db
@@ -8,11 +8,11 @@ Estrutura:
 --my_style.css
 
 
-Documentação de Instalação da Aplicação Oracle Monitor
+## Documentação de Instalação da Aplicação Oracle Monitor
 
 Este documento detalha os passos necessários para instalar e configurar a aplicação de monitoramento Oracle. A aplicação consiste em um backend Flask (Python) e um frontend web (HTML, CSS, JavaScript).
 
-Pré-requisitos
+### Pré-requisitos
 
 Para que a aplicação funcione corretamente, você precisará ter os seguintes softwares instalados e configurados no servidor onde a aplicação será executada:
 
@@ -28,27 +28,23 @@ Para que a aplicação funcione corretamente, você precisará ter os seguintes 
 
         Baixe a versão "Basic" ou "Basic Light" e a versão "SDK" compatíveis com seu sistema operacional e versão do Oracle Database.
 
-        Configuração do Ambiente:
+### Configuração do Ambiente:
+    Linux/macOS: Descompacte os arquivos e defina a variável de ambiente LD_LIBRARY_PATH (Linux) ou DYLD_LIBRARY_PATH (macOS) para o diretório onde o Instant Client foi descompactado. Adicione também o diretório do Instant Client ao PATH. 
+    
+    Bash
+         export LD_LIBRARY_PATH=/path/to/instantclient_xx_x:$LD_LIBRARY_PATH
+         export PATH=/path/to/instantclient_xx_x:$PATH (Substitua xx_x pela sua versão e /path/to/instantclient_xx_x pelo caminho real)
 
-            Linux/macOS: Descompacte os arquivos e defina a variável de ambiente LD_LIBRARY_PATH (Linux) ou DYLD_LIBRARY_PATH (macOS) para o diretório onde o Instant Client foi descompactado. Adicione também o diretório do Instant Client ao PATH.
-            Bash
+    Windows: Descompacte o Instant Client e adicione o caminho do diretório ao PATH do sistema.
+        Comando expdp: Para o funcionamento do recurso de backup Data Pump, o executável expdp precisa estar acessível no PATH do sistema do usuário que executa a aplicação Flask. Isso geralmente é garantido se você tiver um Oracle Client completo ou o Instant Client com os         utilitários de Data Pump configurados corretamente.
 
-            export LD_LIBRARY_PATH=/path/to/instantclient_xx_x:$LD_LIBRARY_PATH
-            export PATH=/path/to/instantclient_xx_x:$PATH
-
-            (Substitua xx_x pela sua versão e /path/to/instantclient_xx_x pelo caminho real)
-
-            Windows: Descompacte o Instant Client e adicione o caminho do diretório ao PATH do sistema.
-
-        Comando expdp: Para o funcionamento do recurso de backup Data Pump, o executável expdp precisa estar acessível no PATH do sistema do usuário que executa a aplicação Flask. Isso geralmente é garantido se você tiver um Oracle Client completo ou o Instant Client com os utilitários de Data Pump configurados corretamente.
-
-    Acesso ao Banco de Dados Oracle:
+###   Acesso ao Banco de Dados Oracle:
 
         Credenciais de um usuário Oracle com privilégios de SELECT nas views V$INSTANCE, DBA_DATA_FILES, DBA_FREE_SPACE, DBA_TABLESPACES, DBA_USERS, DBA_ROLE_PRIVS, DBA_SYS_PRIVS, DBA_TAB_PRIVS, DBA_SEGMENTS, DBA_OBJECTS, e DBA_DIRECTORIES.
 
         Para as operações de "Dropar Usuário", "Bloquear/Desbloquear Usuário", "Alterar Senha do Schema", "Adicionar Grant" e "Criar Usuário" e "Backup Datapump", o usuário configurado no config.ini precisa ter privilégios administrativos (ex: DBA ou SYSDBA ou privilégios granulares suficientes para ALTER USER, DROP USER, GRANT, e para a execução de Data Pump).
 
-Passos de Instalação
+### Passos de Instalação
 
 Siga estes passos para instalar e preparar a aplicação:
 
