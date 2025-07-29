@@ -1,0 +1,892 @@
+/* Código CSS para o Monitor de Espaço da Base de Dados Oracle - Visual Moderno e Limpo */
+
+:root {
+    --color-primary: #007bff;
+    --color-primary-dark: #0056b3;
+    --color-secondary: #28a745;
+    --color-secondary-dark: #218838;
+    --color-text-dark: #34495e; /* Mais escuro para títulos e texto principal */
+    --color-text-light: #555; /* Para texto secundário */
+    --color-background-light: #f4f7f6; /* Fundo geral muito suave */
+    --color-background-card: #ffffff; /* Fundo dos cards e modais */
+    --color-border-light: #e0e6eb; /* Bordas suaves */
+    --color-border-dark: #c0ccda; /* Bordas um pouco mais visíveis */
+    --color-shadow-light: rgba(0, 0, 0, 0.05); /* Sombra mais suave */
+    --color-shadow-medium: rgba(0, 0, 0, 0.08); /* Sombra um pouco mais visível */
+    /* NEW: Refined status colors */
+    --color-status-low: #e6ffe6; /* Verde claro para normal/bom */
+    --color-status-medium: #ffeecf; /* Amarelo muito suave para atenção */
+    --color-status-high: #ffe0b2; /* Laranja suave para aviso */
+    --color-status-critical: #ffcdd2; /* Vermelho suave para crítico */
+    --border-radius-common: 8px; /* Cantos arredondados padrão */
+    --transition-speed: 0.3s;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--color-background-light);
+    color: var(--color-text-light);
+    line-height: 1.6;
+    font-size: 0.9em; /* Fonte base um pouco menor */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: var(--color-background-card);
+    padding: 30px;
+    border-radius: var(--border-radius-common);
+    box-shadow: 0 4px 15px var(--color-shadow-medium);
+}
+
+h1 {
+    color: var(--color-text-dark);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2em; /* Título principal menor */
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+h2 {
+    color: var(--color-text-dark);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 1.5em; /* Títulos de seção menores */
+    border-bottom: 1px dashed var(--color-border-light);
+    padding-bottom: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: color var(--transition-speed) ease;
+    font-weight: 500;
+}
+
+h2:hover {
+    color: var(--color-primary);
+}
+
+.tns-display {
+    text-align: center;
+    font-size: 1em;
+    color: var(--color-text-light);
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.tns-display strong {
+    color: var(--color-primary);
+}
+
+.connection-form {
+    background-color: var(--color-background-light);
+    padding: 15px;
+    border-radius: var(--border-radius-common);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 1px 3px var(--color-shadow-light);
+    min-height: 50px; /* Altura um pouco menor */
+}
+
+.connection-form label {
+    font-weight: 500;
+    color: var(--color-text-dark);
+    margin-right: 10px;
+    font-size: 0.9em; /* Fonte menor */
+}
+
+.connection-form select {
+    padding: 8px 12px;
+    border-radius: var(--border-radius-common);
+    border: 1px solid var(--color-border-dark);
+    margin-right: 20px;
+    font-size: 0.9em; /* Fonte menor */
+    color: var(--color-text-dark);
+    background-color: var(--color-background-card);
+    outline: none;
+    transition: border-color var(--transition-speed) ease;
+}
+
+.connection-form select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.connection-form button {
+    padding: 9px 18px; /* Um pouco menor */
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-common);
+    cursor: pointer;
+    font-size: 0.9em; /* Fonte menor */
+    font-weight: 600;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px var(--color-shadow-light);
+}
+
+.connection-form button:hover {
+    background-color: var(--color-secondary-dark);
+    transform: translateY(-1px); /* Movimento mais suave */
+    box-shadow: 0 4px 8px var(--color-shadow-medium);
+}
+
+.connection-form button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* --- AJUSTES PARA O TAMANHO E LAYOUT DOS GRÁFICOS E CAIXAS DE INFORMAÇÃO --- */
+.chart-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* Espaçamento menor */
+    margin-top: 20px;
+}
+
+.chart-box {
+    background-color: var(--color-background-card);
+    padding: 15px;
+    border-radius: var(--border-radius-common);
+    box-shadow: 0 4px 12px var(--color-shadow-medium); /* Sombra mais subtil */
+    
+    flex: 1 1 calc(33.333% - 10px); /* Ajuste para gap menor */
+    min-width: 260px; /* Largura mínima ajustada */
+    max-width: 360px; /* Largura máxima ajustada */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    min-height: 70px; /* Altura mínima um pouco menor */
+    text-align: center;
+    overflow: hidden;
+    transition: transform var(--transition-speed) ease;
+}
+
+.chart-box:hover {
+    transform: translateY(-2px);
+}
+
+.tables-section {
+    background-color: var(--color-background-card);
+    padding: 15px;
+    border-radius: var(--border-radius-common);
+    box-shadow: 0 4px 12px var(--color-shadow-medium);
+    margin-top: 25px; /* Espaçamento menor */
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden;
+}
+
+.tables-section h2 {
+    cursor: pointer;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed var(--color-border-light);
+    padding-bottom: 5px;
+}
+.tables-section h2:hover {
+    color: var(--color-primary);
+}
+
+.chart-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.chart-content.show {
+    max-height: 9999px; /* Suficientemente grande para a transição */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.chart-box h2 {
+    margin-top: 0;
+    font-size: 1.25em; /* Títulos menores dentro das caixas */
+    color: var(--color-text-dark);
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+.chart-box h3, .chart-box h4 {
+    color: var(--color-primary);
+    margin-top: 8px; /* Espaçamento menor */
+    margin-bottom: 4px;
+    font-size: 0.95em; /* Fonte menor */
+    font-weight: 500;
+}
+
+.chart-box p strong {
+    color: var(--color-text-dark);
+    font-size: 0.95em; /* Fonte menor */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-common);
+    overflow: hidden; /* Garante que as bordas arredondadas funcionem */
+    box-shadow: 0 2px 10px var(--color-shadow-light); /* Sombra de tabela mais leve */
+}
+
+th, td {
+    border: 1px solid var(--color-border-light); /* Bordas mais suaves */
+    padding: 10px 12px; /* Padding ligeiramente menor */
+    text-align: left;
+    font-size: 0.85em; /* Fonte da célula menor */
+    color: var(--color-text-light);
+}
+
+th {
+    background-color: var(--color-primary);
+    color: white; 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em; /* Espaçamento de letra ligeiramente menor */
+    cursor: pointer;
+    position: relative;
+    font-size: 0.9em; /* Fonte do cabeçalho ligeiramente maior para destaque */
+}
+
+/* Sort icons */
+th .sort-icon {
+    position: absolute;
+    right: 8px; /* Posição ajustada */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7em; /* Ícone menor */
+    color: rgba(255, 255, 255, 0.8); /* Cor do ícone ligeiramente transparente */
+}
+
+th.sort-asc .sort-icon::after {
+    content: ' ▲';
+}
+
+th.sort-desc .sort-icon::after {
+    content: ' ▼';
+}
+
+tr:nth-child(even) {
+    background-color: var(--color-background-light); /* Fundo listrado suave */
+}
+
+tr:hover {
+    background-color: #e9eff4; /* Cor de hover suave */
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+/* --- Health Indicators --- */
+/* Mapeamento dos status do backend para as classes de cores */
+tr.status-normal td { /* Status 'normal' (padrão ou baixo uso) */
+    background-color: var(--color-status-low); 
+}
+tr.status-warning td { /* Status 'warning' */
+    background-color: var(--color-status-high); 
+}
+tr.status-critical td { /* Status 'critical' */
+    background-color: var(--color-status-critical); 
+}
+/* NEW: Status for backup in progress */
+tr.status-backup-em-andamento td {
+    background-color: #bfdbfe; /* blue-200 */
+    color: #1e40af; /* blue-800 */
+}
+/* NEW: Status for dropping schema */
+tr.status-dropping td {
+    background-color: #e0f2fe; /* light blue for dropping */
+    color: #0369a1; /* dark blue for dropping */
+}
+
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Opacidade ligeiramente menor */
+    color: white;
+    font-size: 1.8em; /* Fonte menor */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4); /* Sombra mais suave */
+}
+
+.spinner {
+    border: 7px solid rgba(255, 255, 255, 0.3); /* Borda mais fina */
+    border-top: 7px solid var(--color-primary); /* Cor primária */
+    border-radius: 50%;
+    width: 50px; /* Tamanho menor */
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px; /* Espaçamento menor */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #c0392b; /* Vermelho mais escuro */
+    background-color: #fcebeb; /* Fundo muito claro */
+    border: 1px solid #ebc3c3; /* Borda suave */
+    padding: 12px; /* Padding menor */
+    margin-top: 15px; /* Espaçamento menor */
+    border-radius: var(--border-radius-common);
+    text-align: center;
+    font-weight: 500; /* Peso da fonte mais leve */
+    display: none;
+    box-shadow: 0 1px 4px var(--color-shadow-light); /* Sombra mais leve */
+    font-size: 0.9em; /* Fonte menor */
+}
+
+.table-message {
+    text-align: center;
+    color: var(--color-text-light);
+    font-style: italic;
+    padding: 15px 0; /* Padding menor */
+    font-size: 0.85em; /* Fonte menor */
+}
+
+/* --- Modal Styles --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1001; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: var(--color-background-card);
+    margin: 8% auto; /* Um pouco mais alto na tela */
+    padding: 25px; /* Padding ligeiramente menor */
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--border-radius-common);
+    width: 90%; /* Um pouco mais estreito */
+    max-width: 600px; /* Largura máxima menor */
+    box-shadow: 0 6px 20px var(--color-shadow-medium);
+    position: relative;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    font-size: 0.9em; /* Fonte base do modal menor */
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -200px; opacity: 0} /* Inicia um pouco mais perto */
+    to {top: 0; opacity: 1}
+}
+
+.close-button {
+    color: #aaa;
+    /* Removed float: right; from here due to flexbox layout in modal-header-controls */
+    font-size: 26px; /* Ícone menor */
+    font-weight: bold;
+    transition: color var(--transition-speed) ease;
+    /* Adjusted for flexbox */
+    position: relative;
+    top: auto;
+    right: auto;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--color-text-dark);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 10px 0;
+    max-height: 65vh; /* Ajuste da altura máxima */
+    overflow-y: auto;
+}
+
+.modal-body h3 {
+    text-align: center;
+    color: var(--color-text-dark); /* Títulos de tabela dentro do modal mais escuros */
+    margin-top: 15px; /* Espaçamento menor */
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--color-border-light);
+    padding-bottom: 4px;
+    font-size: 1.05em; /* Título h3 do modal um pouco menor */
+    font-weight: 600;
+}
+
+.modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px; /* Espaçamento menor */
+}
+
+.modal-table th {
+    border: 1px solid var(--color-border-light);
+    padding: 7px; /* Padding menor */
+    text-align: left;
+    font-size: 0.8em; /* Fonte do cabeçalho da tabela modal menor */
+    background-color: var(--color-background-light); /* Fundo mais suave */
+    font-weight: 600;
+    color: var(--color-text-dark); /* Cor escura para os cabeçalhos das tabelas modais */
+}
+
+.modal-table td {
+    border: 1px solid var(--color-border-light);
+    padding: 7px; /* Padding menor */
+    text-align: left;
+    font-size: 0.75em; /* Fonte da célula da tabela modal menor */
+    color: var(--color-text-light);
+}
+
+.modal-table tr:nth-child(even) {
+    background-color: #f9fbfb; /* Fundo listrado suave */
+}
+
+.modal-table tr:hover {
+    background-color: #e9eff4; /* Cor de hover suave */
+}
+
+
+/* Ajustes para diminuir fontes nas telas de modal (mantidos e ajustados) */
+#detailsModal .modal-body,
+#addDatafileModal .modal-body,
+#resizeDatafileModal .modal-body,
+#createUserModal .modal-body,
+#adminPasswordPromptModal .modal-body {
+    /* Base font size for modal content (100% zoom) is controlled by JS on .modal-content */
+    /* This overrides the initial font-size for modal bodies defined globally if needed.
+       However, with JS zoom on .modal-content, this rule is less critical as children
+       will inherit adjusted font-size. */
+    font-size: 1em; /* Adjusted to 1em to correctly scale from parent's dynamically set font-size */
+}
+
+/* Ajustes de fonte para elementos de formulário dentro dos modais */
+#addDatafileModal .form-group label,
+#addDatafileModal .form-group input,
+#resizeDatafileModal .form-group label,
+#resizeDatafileModal .form-group input,
+#resizeDatafileModal .modal-body p,
+#createUserModal .form-group label,
+#createUserModal .form-group input,
+#createUserModal .form-group select,
+#adminPasswordPromptModal .form-group label,
+#adminPasswordPromptModal .form-group input {
+    font-size: 0.8em; /* Fonte menor para simular mais a planilha */
+}
+
+#detailsModal .modal-table th,
+#detailsModal .modal-table td {
+    padding: 4px; /* Reduz o padding para que o conteúdo se ajuste melhor */
+    font-size: 0.75em; /* Ajuste específico para detalhes de tabela em modal */
+}
+
+/* Ajustes para o small text dentro dos modais */
+#resizeDatafileModal .modal-body small {
+    font-size: 0.65em; /* Garante que a pequena nota também seja menor */
+    grid-column: 2 / 3;
+    justify-self: start;
+    text-align: left;
+    margin-top: 0;
+    color: #777;
+}
+
+/* Novo estilo para o botão de criar usuário */
+.user-management-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+.user-management-actions button {
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-common);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease;
+    box-shadow: 0 2px 5px var(--color-shadow-light);
+}
+
+.user-management-actions button:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px var(--color-shadow-medium);
+}
+
+.user-management-actions button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* Melhorias para o modal de criação de usuário */
+#createUserModal .modal-content {
+    max-width: 500px;
+    padding: 15px; /* Ajuste do padding */
+}
+
+#createUserModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaçamento um pouco maior entre os grupos */
+    align-items: center;
+}
+
+/* Admin password prompt modal styles */
+#adminPasswordPromptModal .modal-content {
+    max-width: 380px; /* Um pouco mais estreito */
+    padding: 20px;
+    text-align: center;
+}
+#adminPasswordPromptModal .form-group {
+    margin-bottom: 12px; /* Espaçamento ligeiramente maior */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#adminPasswordPromptModal .form-group label {
+    text-align: center;
+    width: auto;
+    padding-right: 0;
+    font-weight: 500;
+    color: var(--color-text-dark);
+}
+#adminPasswordPromptModal .form-group input {
+    width: 90%; /* Mais largo */
+    max-width: 280px;
+    padding: 8px; /* Padding ajustado */
+    border-radius: var(--border-radius-common);
+    border: 1px solid var(--color-border-dark);
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+    font-size: 0.9em;
+    outline: none;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+#adminPasswordPromptModal .form-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+
+/* Estilo para simular células de planilha nos form-groups */
+#addDatafileModal .form-group,
+#resizeDatafileModal .form-group,
+#createUserModal .form-group {
+    display: grid;
+    grid-template-columns: 100px 1fr; /* Coluna para label (menor, fixa) e coluna para input (preenche o resto) */
+    align-items: center;
+    gap: 8px; /* Espaçamento um pouco maior */
+    width: 100%;
+    padding: 5px 8px; /* Padding interno para simular célula */
+    border: 1px solid var(--color-border-light); /* Borda mais suave */
+    border-radius: var(--border-radius-common); /* Cantos arredondados */
+    background-color: var(--color-background-light); /* Fundo suave */
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed) ease;
+}
+
+#addDatafileModal .form-group:focus-within,
+#resizeDatafileModal .form-group:focus-within,
+#createUserModal .form-group:focus-within {
+    border-color: var(--color-primary); /* Borda ao focar */
+}
+
+#createUserModal .form-group label {
+    font-weight: 500; /* Peso da fonte mais leve */
+    color: var(--color-text-dark);
+    text-align: right;
+    padding-right: 5px; /* Pequeno padding */
+    font-size: 0.85em; /* Fonte ligeiramente maior */
+}
+
+#createUserModal .form-group input[type="text"],
+#createUserModal .form-group input[type="password"],
+#createUserModal .form-group select,
+#addDatafileModal .form-group input[type="text"],
+#addDatafileModal .form-group input[type="number"],
+#addDatafileModal .form-group select,
+#resizeDatafileModal .form-group input[type="number"] {
+    width: 100%;
+    padding: 7px; /* Padding ajustado */
+    border: 1px solid var(--color-border-dark); /* Borda mais forte para inputs */
+    border-radius: var(--border-radius-common); /* Cantos arredondados */
+    font-size: 0.8em; /* Ajuste da fonte nos inputs */
+    box-sizing: border-box;
+    background-color: var(--color-background-card);
+    color: var(--color-text-dark);
+    outline: none;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+#createUserModal .form-group input:focus,
+#createUserModal .form-group select:focus,
+#addDatafileModal .form-group input:focus,
+#addDatafileModal .form-group select:focus,
+#resizeDatafileModal .form-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+        
+/* Specific style for checkbox label within form-group that is not a grid item */
+#addDatafileModal .form-group input[type="checkbox"] + label,
+#resizeDatafileModal .form-group input[type="checkbox"] + label,
+#createUserModal .checkbox-group label {
+    grid-column: 2 / 3;
+    justify-self: start;
+    text-align: left;
+    margin-left: 0;
+    font-size: 0.8em; /* Ajuste da fonte */
+    font-weight: normal;
+    color: var(--color-text-dark);
+}
+
+#addDatafileModal .form-group input[type="checkbox"],
+#resizeDatafileModal .form-group input[type="checkbox"],
+#createUserModal .checkbox-group input[type="checkbox"] {
+    grid-column: 1 / 2;
+    justify-self: end;
+    margin-right: 5px; /* Espaçamento ajustado */
+    transform: scale(0.9); /* Tamanho ligeiramente maior */
+}
+
+
+#createUserModal .checkbox-group {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-common);
+    background-color: var(--color-background-light);
+    box-sizing: border-box;
+    transition: border-color var(--transition-speed) ease;
+}
+
+#createUserModal .checkbox-group:focus-within {
+    border-color: var(--color-primary);
+}
+
+
+/* Estilo para os botões principais de submissão dentro dos modais (pequeno e quadrado) */
+.modal-submit-button {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 8px 15px; /* Mais padding */
+    border: none;
+    border-radius: var(--border-radius-common);
+    cursor: pointer;
+    font-size: 0.85em; /* Fonte maior */
+    font-weight: 600;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease;
+    margin-top: 10px; /* Espaçamento ajustado */
+    align-self: center;
+    min-width: 80px; /* Largura mínima maior */
+    min-height: 30px; /* Altura mínima maior */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px var(--color-shadow-light);
+}
+
+.modal-submit-button:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px var(--color-shadow-medium);
+}
+
+.modal-submit-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+#createUserModal .status-message,
+#adminPasswordPromptModal .status-message {
+    margin-top: 8px; /* Espaçamento ajustado */
+    font-size: 0.8em; /* Fonte ajustada */
+    text-align: center;
+    font-weight: 500;
+}
+        
+/* Estilo para botões de ação nas tabelas dentro dos modais (Redimensionar) */
+.table-action-button {
+    padding: 5px 10px; /* Mais padding */
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-common);
+    cursor: pointer;
+    font-size: 0.75em; /* Fonte ajustada */
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+    white-space: nowrap;
+    min-width: 60px; /* Largura mínima ajustada */
+    min-height: 25px; /* Altura mínima ajustada */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 3px var(--color-shadow-light);
+}
+
+.table-action-button:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box_shadow: 0 2px 5px var(--color-shadow-medium);
+}
+.table-action-button:active {
+    transform: translateY(0);
+    box_shadow: none;
+}
+
+
+/* Responsividade Aprimorada */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 0.85em;
+    }
+    .container {
+        padding: 20px;
+        margin: 10px auto;
+    }
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    h2 {
+        font-size: 1.2em;
+    }
+    .chart-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .chart-box {
+        width: 100%;
+        max-width: 98%; /* Para usar mais da largura disponível */
+        padding: 12px;
+        min-height: 60px;
+    }
+    .tables-section {
+        width: 100%;
+        max-width: 98%;
+        padding: 12px;
+        margin-top: 20px;
+    }
+    .chart-box h2 {
+        font-size: 1.1em;
+    }
+    .chart-box h3, .chart-box h4, .chart-box p strong {
+        font-size: 0.9em;
+    }
+    .chart-content table th,
+    .chart-content table td {
+        padding: 5px 6px;
+        font-size: 0.7em;
+    }
+    .tns-display {
+        font-size: 0.9em;
+        margin-top: -15px;
+    }
+    .modal-content {
+        width: 95%;
+        margin: 3% auto;
+        padding: 15px;
+    }
+    .modal-body {
+        max-height: 70vh; /* Permite mais altura para conteúdo em telas pequenas */
+    }
+    .modal-table th, .modal-table td {
+        padding: 5px;
+        font-size: 0.7em;
+    }
+    .modal-body h3 {
+        font-size: 0.95em;
+    }
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .table-controls input[type="text"] {
+        width: 100%;
+        margin-bottom: 0;
+        font-size: 0.85em;
+    }
+    .pagination-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .pagination-controls button {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+
+    /* Ajustes específicos de modal para telas pequenas */
+    #addDatafileModal .form-group,
+    #resizeDatafileModal .form-group,
+    #createUserModal .form-group,
+    #createUserModal .checkbox-group {
+        grid-template-columns: 80px 1fr; /* Colunas um pouco mais estreitas */
+        gap: 6px;
+        padding: 4px 6px;
+    }
+    #addDatafileModal .form-group label,
+    #resizeDatafileModal .form-group label,
+    #createUserModal .form-group label {
+        font-size: 0.8em;
+    }
+    #addDatafileModal .form-group input,
+    #resizeDatafileModal .form-group input,
+    #createUserModal .form-group input,
+    #createUserModal .form-group select {
+        font-size: 0.75em;
+        padding: 6px;
+    }
+    #resizeDatafileModal .modal-body small,
+    #addDatafileModal .form-group input[type="checkbox"] + label,
+    #resizeDatafileModal .form-group input[type="checkbox"] + label,
+    #createUserModal .checkbox-group label {
+        font-size: 0.7em;
+    }
+    .modal-submit-button, .table-action-button {
+        padding: 6px 12px;
+        font-size: 0.8em;
+        min-width: 60px;
+        min-height: 25px;
+    }
+    #adminPasswordPromptModal .modal-content {
+        max-width: 90%;
+    }
+    #adminPasswordPromptModal .form-group input {
+        width: 95%;
+        max-width: 250px;
+    }
+}
