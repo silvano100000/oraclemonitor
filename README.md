@@ -3,6 +3,6 @@ Estrutura:
 - config.ini
 - history.db
 - templates
----index.html
+--index.html
 - static
----my_style.css
+--my_style.css
